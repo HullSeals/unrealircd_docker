@@ -24,7 +24,7 @@ WORKDIR ../unrealircd
 
 WORKDIR conf/ssl
 
-RUN openssl req -new -sha256 -newkey rsa:4096 -keyout server.key.pem -out server.req.pem -subj "/C=US/ST=OH/O=Pydle/CN=irc.hullseals.dev" -nodes && openssl req -x509 -key server.key.pem -in server.req.pem -weeks 1 -out server.cert.pem
+RUN openssl req -new -sha256 -newkey rsa:4096 -keyout server.key.pem -out server.req.pem -subj "/C=US/ST=OH/O=Pydle/CN=irc.hullseals.dev" -nodes && openssl req -x509 -key server.key.pem -in server.req.pem -days 7 -out server.cert.pem
 WORKDIR ..
 COPY ./ircd.conf unrealircd.conf
 WORKDIR ..
