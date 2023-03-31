@@ -1,15 +1,15 @@
-version: '3.2'
+version: '4.0'
 services:
   irc:
     build: ./irc
-    image: theunkn0wn1/unrealircd
+    image: hullseals/unrealircd
     ports:
       - "6667:6667" # for IRC
       - "6697:6697" # for IRC
 
   services:
     build: ./irc_services
-    image: theunkn0wn1/anope_services
+    image: hullseals/anope_services
 
     links:
       - irc

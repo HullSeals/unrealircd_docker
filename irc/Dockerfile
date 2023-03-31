@@ -1,4 +1,4 @@
-FROM buildpack-deps:bionic
+FROM buildpack-deps:jammy
 
 # create an unpriviledged user to make and run irc in
 RUN useradd ircd -m --password ircd
@@ -8,11 +8,11 @@ USER ircd
 WORKDIR /home/ircd
 
 # fetch unreal sources
-RUN wget --trust-server-names https://www.unrealircd.org/unrealircd4/unrealircd-4.2.1.1.tar.gz
+RUN wget --trust-server-names https://www.unrealircd.org/downloads/unrealircd-6.0.7.tar.gz
 #unpack
-RUN tar xzvf unrealircd-4.2.1.1.tar.gz
+RUN tar xzvf unrealircd-6.0.7.tar.gz
 # switch to our new working directory
-WORKDIR /home/ircd/unrealircd-4.2.1.1
+WORKDIR /home/ircd/unrealircd-6.0.7
 
 # run default configuration
 RUN ./Config
@@ -24,7 +24,7 @@ WORKDIR ../unrealircd
 
 WORKDIR conf/ssl
 
-RUN openssl req -new -sha256 -newkey rsa:4096 -keyout server.key.pem -out server.req.pem -subj "/C=US/ST=WA/O=Pydle/CN=irc.unknown.com" -nodes && openssl req -x509 -key server.key.pem -in server.req.pem -days 1 -out server.cert.pem
+RUN openssl req -new -sha256 -newkey rsa:4096 -keyout server.key.pem -out server.req.pem -subj "/C=US/ST=OH/O=Pydle/CN=irc.hullseals.dev" -nodes && openssl req -x509 -key server.key.pem -in server.req.pem -weeks 1 -out server.cert.pem
 WORKDIR ..
 COPY ./ircd.conf unrealircd.conf
 WORKDIR ..
